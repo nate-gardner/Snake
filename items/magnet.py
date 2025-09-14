@@ -1,5 +1,3 @@
-import pygame
-import os
 from items.item import Item
 
 class Magnet(Item):

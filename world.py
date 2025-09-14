@@ -3,9 +3,7 @@ from pygame.locals import *
 from items.magnet import Magnet
 from items.fruit import Fruit
 from items.speed import Speed
-from items.item import Item
-from items.wall import Wall
-from players.player import Player
+from wall import Wall
 from players.bot import Bot
 import random
 

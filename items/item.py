@@ -8,7 +8,7 @@ class Item:
         self.color:tuple[int, int, int]
         
         image_name = None
-        for file in os.scandir(f"images/{self.name}"):
+        for file in os.scandir(os.path.join("images", f"{self.name}")):
             if file.is_file():
                 image_name = file.path
 
@@ -19,7 +19,7 @@ class Item:
             self.image.fill(self.color)
         
         sound_name = None
-        for file in os.scandir(f"sounds/{self.name} collect"):
+        for file in os.scandir(os.path.join("sounds", f"{self.name} collect")):
             if file.is_file():
                 sound_name = file.path
         self.sound = pygame.mixer.Sound(sound_name) if sound_name else None

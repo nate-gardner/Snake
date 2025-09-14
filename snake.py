@@ -12,17 +12,34 @@ from world import World
 class App:
     def __init__(self):
         pygame.init()
-        with open("saves/colors.json", "r") as colors:
+        
+        with open(os.path.join("saves", "colors.json"), "r") as colors:
             self.colors = json.load(colors)
-        with open("saves/keysets.json", "r") as keysets:
+            
+        with open(os.path.join("saves", "keysets.json"), "r") as keysets:
             self.keysets = json.load(keysets)
+            
+        self.menu_music = None
+        for file in os.scandir(os.path.join("sounds", "menu background")):
+            if file.is_file():
+                self.menu_music = file.path
+                
+        self.game_music = None
+        for file in os.scandir(os.path.join("images", "game background")):
+            if file.is_file():
+                self.game_music = file.path
+        
+        if self.menu_music:
+            pygame.mixer_music.load(self.menu_music)
+            pygame.mixer_music.play(-1)
+            
         self.players = [Player(self.colors["forest green"], self.keysets["arrows"], 0),]
         
         SIZE = WIDTH, HEIGHT = 810, 810
         self.screen = pygame.display.set_mode(SIZE)
         self.clock = pygame.time.Clock()
 
-        self.items = {Fruit.name: Fruit, Speed.name:Speed}
+        self.items = {Fruit.name:Fruit, Speed.name:Speed}
         self.getWorldSaves()
         self.world = self.worlds[0]
 
@@ -36,7 +53,18 @@ class App:
         # settings menu button
         main_menu.widgets.append(menu.Button("Settings", lambda:self.set_active_menu(settings_menu), (WIDTH//2, HEIGHT//2-30)))
         # play button
-        main_menu.widgets.append(menu.Button("Play", lambda:World.start(self.world, self.players, self.bots.get()), (WIDTH//2, HEIGHT//2+30)))
+        def start_game():
+            pygame.mixer_music.stop()
+            pygame.mixer_music.unload()
+            pygame.mixer_music.load(self.game_music)
+            pygame.mixer_music.play(-1)
+            self.world.start(self.players, self.bots.get()), (WIDTH//2, HEIGHT//2+30)
+            pygame.mixer_music.stop()
+            pygame.mixer_music.unload()
+            pygame.mixer_music.load(self.menu_music)
+            pygame.mixer_music.play(-1)
+            
+        main_menu.widgets.append(menu.Button("Play", start_game))
 
         # SETTINGS MENU
         settings_menu = menu.Menu()
@@ -99,7 +127,7 @@ class App:
             return
         world_index = self.worlds.index(self.world)
         self.world_items_var.get().remove([self.worlds[world_index].name, self.worlds[world_index]])
-        os.remove(f"saves/worlds/{self.world.name}.json")
+        os.remove(os.path.join("saves", "worlds", f"{self.world.name}.json"))
         self.set_world((self.worlds[world_index-1].name, self.worlds[world_index-1]))
     
     def newWorld(self):
@@ -111,7 +139,7 @@ class App:
         while name in world_names:
             name = name + '-'
         world.name = name
-        with open(f"saves/worlds/{world.name}.json", "w") as f:
+        with open(os.path.join("saves", "worlds", f"{world.name}.json"), "w") as f:
             json.dump(world.getData(), f)
         world_items = self.world_items_var.get()
         world_items.append([world.name, world])
@@ -120,7 +148,8 @@ class App:
     def remameWorld(self, name):
         if self.world.name == "default":
             return
-        os.rename(f"saves/worlds/{self.world.name}.json", f"saves/worlds/{name}.json")
+        os.rename(os.path.join("saves", "worlds", f"{self.world.name}.json"),
+                  os.path.join("saves", "worlds", f"{name}.json"))
         for item in self.world_items_var.get():
             if item[0] == self.world.name:
                 item[0] = name
@@ -131,12 +160,12 @@ class App:
     def saveWorld(self):
         if self.world.name == "default":
             return
-        with open(f"saves/worlds/{self.world.name}.json", "w") as f:
+        with open(os.path.join("saves", "worlds", f"{self.world.name}.json"), "w") as f:
             json.dump(self.world.getData(), f, indent=4)
     
     def getWorldSaves(self):
         self.worlds = [World("default")]
-        with os.scandir("saves/worlds") as saves:
+        with os.scandir(os.path.join("saves", "worlds")) as saves:
             for save in saves:
                 if save.is_file():
                     if save.name.endswith(".json"):
@@ -158,9 +187,13 @@ class App:
             for event in events:
                 if event.type == QUIT:
                     running = False
-            self.screen.fill((0, 0, 0))
+                    
             self.active_menu.update(events)
+            
+            self.screen.fill((0, 0, 0))
+            
             self.active_menu.draw(self.screen)
+            
             pygame.display.flip()
             self.clock.tick(framerate)
 

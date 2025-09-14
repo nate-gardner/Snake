@@ -1,0 +1,48 @@
+{
+    "forest green": "#324632",
+    "light purple": [
+        217,
+        217,
+        255
+    ],
+    "electric blue": [
+        54,
+        217,
+        255
+    ],
+    "sea green": [
+        54,
+        217,
+        171
+    ],
+    "royal purple": [
+        54,
+        46,
+        171
+    ],
+    "chocolate brown": [
+        54,
+        46,
+        28
+    ],
+    "muted purple": [
+        54,
+        14,
+        28
+    ],
+    "light pink": [
+        255,
+        217,
+        217
+    ],
+    "burgundy": [
+        56,
+        15,
+        37
+    ],
+    "tangerine": [
+        255,
+        186,
+        93
+    ]
+}

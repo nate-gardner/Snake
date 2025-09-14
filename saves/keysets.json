@@ -1,0 +1,26 @@
+{
+    "arrows": {
+        "up": "up",
+        "down": "down",
+        "left": "left",
+        "right": "right"
+    },
+    "wasd": {
+        "up": "w",
+        "down": "s",
+        "left": "a",
+        "right": "d"
+    },
+    "tfgh": {
+        "up": "t",
+        "down": "g",
+        "left": "f",
+        "right": "h"
+    },
+    "ijkl": {
+        "up": "i",
+        "down": "k",
+        "left": "j",
+        "right": "l"
+    }
+}

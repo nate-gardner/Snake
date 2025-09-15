@@ -15,9 +15,10 @@ My goal for this project is for it to become fully customizeable and learn new p
 
 1. Click on the **<> Code** button in the top-right and select _Download ZIP_.
 2. Go to your **Downloads** folder and unpack the _.zip_ file to the location of your choosing.
-3. Right-click the new folder and select the _Open in New Terminal_ option.
-4. Type `source run &` and hit `Enter`/`Return`.
-5. You may close the Teminal.
+3. Open the _Snake-main_ folder and unpack the _venv.zip_ file.
+4. Right-click the _Snake-main_ folder and select the _Open in New Terminal_ option.
+5. Type `source run &` and hit `Enter`/`Return`.
+6. You may close the Teminal.
 
 ## Custom Images, Music and Sound Effects
 

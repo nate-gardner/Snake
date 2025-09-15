@@ -25,7 +25,7 @@ class App:
                 self.menu_music = file.path
                 
         self.game_music = None
-        for file in os.scandir(os.path.join("images", "game background")):
+        for file in os.scandir(os.path.join("sounds", "game background")):
             if file.is_file():
                 self.game_music = file.path
         

@@ -23,8 +23,8 @@ My goal for this project is for it to become fully customizeable and learn new p
 
 1. Open the game folder and navigate to the _images_/_sounds_ folder.
 2. Open the folder with name of the image/sound you wish to add/replace.
-3. Move the new file to that folder.
-4. Place the existing file in a folder in the same directory (or elsewhere) or delete it.
+3. Place the existing file in a folder in the _other_ folder or delete it.
+4. Move the new file to that folder.
 
 ### Requirements
 - Images must be GIF or bitmap format (.png prefered)

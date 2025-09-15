@@ -8,7 +8,7 @@ class Magnet(Item):
 
     def on_collect(self, snake, pos):
         snake.effect = self.while_active
-        snake.effect_timer = 5 # duration in seconds
+        snake.effect_timer = 10 # duration in seconds
         super().on_collect(snake, pos)
 
     def while_active(self, snake):

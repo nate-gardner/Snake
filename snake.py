@@ -54,17 +54,21 @@ class App:
         main_menu.widgets.append(menu.Button("Settings", lambda:self.set_active_menu(settings_menu), (WIDTH//2, HEIGHT//2-30)))
         # play button
         def start_game():
-            pygame.mixer_music.stop()
-            pygame.mixer_music.unload()
-            pygame.mixer_music.load(self.game_music)
-            pygame.mixer_music.play(-1)
-            self.world.start(self.players, self.bots.get()), (WIDTH//2, HEIGHT//2+30)
-            pygame.mixer_music.stop()
-            pygame.mixer_music.unload()
-            pygame.mixer_music.load(self.menu_music)
-            pygame.mixer_music.play(-1)
+            if self.menu_music:
+                pygame.mixer_music.stop()
+                pygame.mixer_music.unload()
+            if self.game_music:
+                pygame.mixer_music.load(self.game_music)
+                pygame.mixer_music.play(-1)
+            self.world.start(self.players, self.bots.get())
+            if self.game_music:
+                pygame.mixer_music.stop()
+                pygame.mixer_music.unload()
+            if self.menu_music:
+                pygame.mixer_music.load(self.menu_music)
+                pygame.mixer_music.play(-1)
             
-        main_menu.widgets.append(menu.Button("Play", start_game))
+        main_menu.widgets.append(menu.Button("Play", start_game, (WIDTH//2, HEIGHT//2+30)))
 
         # SETTINGS MENU
         settings_menu = menu.Menu()
@@ -197,6 +201,11 @@ class App:
             pygame.display.flip()
             self.clock.tick(framerate)
 
+        
+        if self.menu_music:
+            pygame.mixer_music.stop()
+            pygame.mixer_music.unload()
+            
         pygame.quit()
 
 if __name__ == "__main__":

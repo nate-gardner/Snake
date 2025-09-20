@@ -1,0 +1,3 @@
+source venv/.venv/bin/activate
+python3 snake.py
+deactivate

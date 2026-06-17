@@ -7,6 +7,8 @@ from wall import Wall
 from players.bot import Bot
 import random
 
+SECS_PER_ITEM = 1.5 # DEFAULT 1.5
+
 def sortPair(x1, x2):
     if x1 >= x2: return x1, x2
     elif x2 > x1: return x2, x1
@@ -101,8 +103,8 @@ class World:
                     if event.key == K_ESCAPE:
                         running = False
             if one_alive:
-                while item_timer >= 1.5:
-                    item_timer -= 1.5
+                while item_timer >= SECS_PER_ITEM:
+                    item_timer -= SECS_PER_ITEM
                     self.new_item(players)
                 else:
                     item_timer += dt/1000
@@ -177,4 +179,3 @@ class World:
             pygame.display.flip()
             dt = self.clock.tick(40)
             # print(self.clock.get_fps())
-        pass

@@ -1,10 +1,10 @@
 # Initialize venv
-if [ -d ".venv" ]; then
+if ! [ -d ".venv" ]; then
     python3 -m venv .venv
-    ./.venv/bin/pip install pygame
+    .venv/bin/pip install pygame > /dev/null
 fi
+
 source .venv/bin/activate
 
-
-python3 snake.py
+python3 snake.py > /dev/null
 deactivate
